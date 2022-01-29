@@ -11,7 +11,7 @@ All Relative information on Problem Statement, Research Papers & Dataset, Propos
 
 | Name  | EDA  | Approach |
 |---|---|---|
-| [Topic Modeling From Hashtags](https://github.com/wildOsprey/emerging-topics-in-politics/wiki/Approaches#topic-modeling-from-hashtags)  | [![Open EDA In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19fM4WDT0WhW1NF0KcBWXaMYZmYKJibOg?usp=sharing)  | [![Open Approach In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19fM4WDT0WhW1NF0KcBWXaMYZmYKJibOg?usp=sharing)
+| [Topic Modeling From Hashtags](https://github.com/wildOsprey/emerging-topics-in-politics/wiki/Approaches#topic-modeling-from-hashtags)  | [![Open EDA In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19fM4WDT0WhW1NF0KcBWXaMYZmYKJibOg?usp=sharing)  | [![Open Approach In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/15k_ZFHWG4N4S70NF1qQGD2LNx9vfIWWe?usp=sharing)
 
 
 ## Requirements
