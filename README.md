@@ -7,6 +7,13 @@ All Relative information on Problem Statement, Research Papers & Dataset, Propos
 ![alt text](https://github.com/wildOsprey/emerging-topics-in-politics/blob/main/images/infrastructure/proposed_infrustructure.png)
 
 
+## Approaches
+
+| Name  | EDA  | Approach |
+|---|---|---|
+| [Topic Modeling From Hashtags](https://github.com/wildOsprey/emerging-topics-in-politics/wiki/Approaches#topic-modeling-from-hashtags)  | [![Open EDA In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19fM4WDT0WhW1NF0KcBWXaMYZmYKJibOg?usp=sharing)  | [![Open Approach In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/19fM4WDT0WhW1NF0KcBWXaMYZmYKJibOg?usp=sharing)
+
+
 ## Requirements
 
 To install requirements:
@@ -15,4 +22,6 @@ To install requirements:
 pip install -r requirements.txt
 ```
 
-You can also find .env.sample file in the repo. It's needed for heroku demo, but currently unavailable.
+In order to test google colab, you will also need to download kaggle.json file from your account.
+Login at https://www.kaggle.com/ -> Account -> API.
+
