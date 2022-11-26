@@ -3,15 +3,15 @@ import json
 import re
 from textblob import TextBlob
 
+
 class Cline():
 
     df = pd.DataFrame(columns=['Date', 'Text', 'Likes',
                                'Retweets', 'Sentiment', 'Length', 'Word_counts'])
 
-
     def __init__(self, json_data):
         self.json_data = json_data
-    
+
     def sentiment_TextBlob(self, tweet):
         analysis = TextBlob(' '.join(
             re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split()))
@@ -21,12 +21,12 @@ class Cline():
             return 0
         else:
             return -1
-    
+
     def convert_month(self, month):
         months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         return months.index(month)+1
-    
+
     def timestamp(self, df):
         dates = pd.DataFrame(columns=['Year', 'Month', 'Day'])
         dates['Year'] = self.df['Date'].apply(lambda x: int(x[-4:]))
@@ -39,18 +39,18 @@ class Cline():
 
     def clean_text(self, text):
         emoji_pattern = re.compile("["
-                                u"\U0001F600-\U0001F64F"  # emoticons
-                                u"\U0001F300-\U0001F5FF"  # symbols & pictographs
-                                u"\U0001F680-\U0001F6FF"  # transport & map symbols
-                                u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
-                                "]+", flags=re.UNICODE)
+                                   u"\U0001F600-\U0001F64F"
+                                   u"\U0001F300-\U0001F5FF"
+                                   u"\U0001F680-\U0001F6FF"
+                                   u"\U0001F1E0-\U0001F1FF"
+                                   "]+", flags=re.UNICODE)
         text = str(text)
         text = emoji_pattern.sub(r'', text)
         text = re.sub(r'@\w+', '', text)
         text = re.sub(r'http.?://[^/s]+[/s]?', '', text)
         return text.strip().lower()
 
-    def get_data(self,json_format=None):
+    def get_data(self, json_format=None):
         for fild in self.json_data:
             append = {}
             append['Date'] = fild['created_at']
@@ -67,7 +67,3 @@ class Cline():
             return self.df.to_json(orient="records", lines=False)
         else:
             return self.df
-        
-
-    
-

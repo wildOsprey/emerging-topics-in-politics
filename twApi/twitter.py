@@ -1,13 +1,13 @@
 import tweepy
 import configparser
-import pandas as pd
 import os
+
 
 class tweets():
 
     scraped_data = list()
 
-    def __init__(self, key_path=""):
+    def __init__(self, key_path: str = ""):
         self.key_path = key_path
 
     def auth(self):
@@ -26,9 +26,11 @@ class tweets():
             access_token_secret = os.getenv("access_token_secret".upper())
             return tweepy.API(tweepy.OAuth1UserHandler(api_key, api_key_secret, access_token, access_token_secret))
 
+    @property
+    def raw(self):
+        return self.scraped_data
 
-
-    def search(self, hashtags: list, count=100, items=1000):
+    def search(self, hashtags: list, count=100, items=500):
         api = self.auth()
         for tag in hashtags:
             self.scraped_data.extend([tweet for tweet in tweepy.Cursor(api.search_tweets, tag,

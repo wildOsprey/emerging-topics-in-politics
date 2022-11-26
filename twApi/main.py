@@ -1,29 +1,31 @@
-import tweepy
+from fastapi import FastAPI
+from pydantic import BaseModel
 import json
-import configparser
-from twitter import tweets
+import twitter
+
+app = FastAPI()
+api = twitter.tweets("key.ini")
 
 
-def auth(path: str):
-    config = configparser.ConfigParser()
-    config.read(path)
-    api_key = config["default"]["api_key"]
-    api_key_secret = config["default"]["api_key_secret"]
-    access_token = config["default"]["access_token"]
-    access_token_secret = config["default"]["access_token_secret"]
-
-    return tweepy.API(tweepy.OAuth1UserHandler(api_key, api_key_secret, access_token, access_token_secret))
+class Tags(BaseModel):
+    names: list
+    count: int
+    times: int
 
 
-api = auth("key.ini")
-
-test = tweets(api)
-test.search(["#ua", "#ukraine", "#war"])
-test.write("out.csv")
+@app.get("/health")
+def health():
+    return {"message": 200}
 
 
-# status = tweepy.Cursor(api.search_tweets, "#Ukraine",
-#                        lang='en', count=1).items(10)
+@app.get("/api/v1/get")
+async def get_item():
+    if api.raw:
+        return {"data": api.raw[0].text}
+    else:
+        return {"message": "empty list"}
 
-# for key in status:
-#     print(key._json)
+
+@app.post("/api/v1/post")
+async def items(tags: Tags):
+    return {"data": api.search(hashtags=tags.names, count=tags.count, items=tags.times)}

@@ -6,7 +6,6 @@ from cleaner import Cline
 import json
 
 
-
 # def auth(path: str):
 #     config = configparser.ConfigParser()
 #     config.read(path)
@@ -20,7 +19,7 @@ import json
 
 # api = auth("key.ini")
 
-test = tweets("key.ini", "out.csv")
+test = tweets("key.ini",)
 data = test.search(["#ua", "#ukraine", "#war"], count=1, items=3)
 
 out = Cline(data)
@@ -28,8 +27,9 @@ out = Cline(data)
 out.get_data(json_format=True)
 
 print(json.loads(out.get_data(json_format=True))[0]["Text"])
-
 print(out.get_data().head())
+
+print(type(test.raw[0].text))
 
 # def sentiment_TextBlob(tweet):
 #     analysis = TextBlob(' '.join(
