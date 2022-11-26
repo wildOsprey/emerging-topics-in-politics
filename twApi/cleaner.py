@@ -4,7 +4,7 @@ import re
 from textblob import TextBlob
 
 
-class Cline():
+class Clean():
 
     df = pd.DataFrame(columns=['Date', 'Text', 'Likes',
                                'Retweets', 'Sentiment', 'Length', 'Word_counts'])
