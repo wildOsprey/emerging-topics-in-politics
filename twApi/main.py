@@ -4,7 +4,7 @@ import json
 import twitter
 
 app = FastAPI()
-api = twitter.tweets("key.ini")
+api = twitter.tweets()
 
 
 class Tags(BaseModel):

@@ -7,7 +7,7 @@ class tweets():
 
     scraped_data = list()
 
-    def __init__(self, key_path: str = ""):
+    def __init__(self, key_path: str | None = None):
         self.key_path = key_path
 
     def auth(self):

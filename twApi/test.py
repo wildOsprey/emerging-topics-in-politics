@@ -2,7 +2,7 @@
 # import json
 # import configparser
 from twitter import tweets
-from cleaner import Cline
+from cleaner import Clean
 import json
 
 
