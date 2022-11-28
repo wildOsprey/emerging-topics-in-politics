@@ -1,3 +1,7 @@
+## Apply
+```shell
+kubectl apply -f .
+```
 ## Use elastic
 ```shell
 kubectl port-forward svc/elasticsearch-master 9200 -n demo
