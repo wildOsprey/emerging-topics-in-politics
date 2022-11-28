@@ -1,2 +1,4 @@
 key.ini
 .env
+.sicrettwapi.yaml
+chart/*
