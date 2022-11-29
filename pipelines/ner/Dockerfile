@@ -8,5 +8,6 @@ COPY ./pipelines/sentiment /app/pipelines/sentiment
 COPY ./algorithms /app/algorithms/
 COPY ./storages /app/storages/
 COPY ./utils /app/utils/
+COPY ./pipelines/ner /app/pipelines/ner
 
 ENTRYPOINT [ "python3", "/app/pipelines/ner/main.py"]

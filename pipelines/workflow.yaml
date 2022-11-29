@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: pipline-
+spec:
+  entrypoint: run
+  templates:
+  - name: scraper
+    container:
+      image: glapss/scraper:1
+      args: ["--tweet-host", "twaapi-app.demo.svc.cluster.local:80", "--elastic-hosts", "https://elastic:password@elasticsearch-master.demo.svc.cluster.local:9200", "--tags", "RussiaIsATerroristState,UkraineRussianWar,glorytoukraine,ukrainewar", "--count", "100", "--times", "1000"]
+  - name: ner
+    container:
+      image: glapss/ner:2
+      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "test_run_v2"]
+  - name: sentiment
+    container:
+      image: glapss/sentiment:1
+      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "test_run_v2"]
+ 
+  - name: run
+    steps:
+    - - name: run-scraper
+        template: scraper       
+    - - name: run-ner 
+        template: ner      
+      - name: run-sentiment
+        template: sentiment
