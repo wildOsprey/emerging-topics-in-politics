@@ -3,11 +3,11 @@ import warnings
 import elasticsearch
 from elasticsearch.helpers import streaming_bulk, reindex
 
-from logging import get_logger
+from logging import getLogger
 from storages.queries import DEFAULT_QUERY
 
 DEFAULT_ITERATION_SIZE = 500
-logger = get_logger()
+logger = getLogger()
 
 
 class ElasticStorage:
@@ -21,7 +21,8 @@ class ElasticStorage:
         self.es_connection = elasticsearch.Elasticsearch(
             hosts=hosts,
             retry_on_timeout=True,
-            timeout=240
+            timeout=240,
+            verify_certs=False
         )
 
     def reconnect(self):
@@ -32,7 +33,7 @@ class ElasticStorage:
         )
 
     def is_exist(self, index):
-        return self.es_connection.indices.exists(index)
+        return self.es_connection.indices.exists(index=index)
 
     def get_indicies(self, pattern='*'):
         return self.es_connection.indices.get_alias(pattern).keys()
@@ -40,7 +41,6 @@ class ElasticStorage:
     def get_count(self, index, query=DEFAULT_QUERY):
         count_request = self.es_connection.count(
             index=index,
-            params={"format": "json"},
             body=query
             )
         return int(count_request['count'])
@@ -80,14 +80,14 @@ class ElasticStorage:
 
         return data
 
-    def insert_doc_bunks(self, data:list[dict], index:str):
+    def insert_doc_bunks(self, data, index:str):
         insert_actions = [
             self._get_insert_action(index, sample) for sample in data
             ]
 
         self.bulk(insert_actions)
 
-    def update_doc_bunks(self, data:list[tuple[str, dict]], index:str):
+    def update_doc_bunks(self, data, index:str):
         update_actions = [
             self._get_update_action(index, elastic_id, sample) for elastic_id, sample in data
             ]
@@ -112,10 +112,10 @@ class ElasticStorage:
         except Exception as e:
             warnings.warn(f'Error erased in bulk : {str(e)}')
 
-    def get_limited_data(self, index, query, limit, last_item_id=None, return_source=False):
+    def get_limited_data(self, index, limit, query=DEFAULT_QUERY, last_item_id=None, return_source=True):
         query['size'] = limit
         query['sort'] = [
-            {"id.keyword": "asc"}
+            {"id.keyword": "asc", "ignore_unmapped" : True}
         ]
 
         if last_item_id:
