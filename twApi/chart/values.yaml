@@ -1,0 +1,60 @@
+replicaCount: 1
+
+image:
+  repository: "glapss/twapi"
+  pullPolicy: IfNotPresent
+  tag: "1"
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podSecurityContext: {}
+securityContext: {}
+
+service:
+  type: ClusterIP
+  port: 80
+
+envFrom:
+  - secretRef:
+      name: twapi-secret
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts: {}
+  tls: {}
+
+livenessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 5
+  httpGet:
+    path: /health
+    port: http
+
+readinessProbe:
+  initialDelaySeconds: 10
+  periodSeconds: 10
+  failureThreshold: 10
+  httpGet:
+    path: /health
+    port: http
+
+
+resources: {}
+
+podPorts:
+  - name: http
+    containerPort: 8000
+    protocol: TCP
+
+nodeSelector: {}
+
+tolerations: {}
+
+affinity: {}

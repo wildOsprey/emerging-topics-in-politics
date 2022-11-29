@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-workflows
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  source:
+    repoURL: https://argoproj.github.io/argo-helm
+    targetRevision: 0.20.1
+    chart: argo-workflows
+    helm:
+      values: |
+        createAggregateRoles: true
+        workflow:
+          serviceAccount:
+            create: true
+            name: "argo-workflow"
+          rbac:
+            create: true
+        controller:
+          extraEnv:
+            - name: ARGO_EXECUTOR_PLUGINS
+              value: "true"
+          rbac:
+            create: true
+          workflowNamespaces:
+            - argocd
+            - demo
+        server:
+          enabled: true
+          rbac:
+            create: true
+          serviceAccount:
+            create: true
+          replicas: 1
+
+        
+
