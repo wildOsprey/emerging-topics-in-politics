@@ -40,6 +40,8 @@ spec:
             - demo
         server:
           enabled: true
+          extraArgs:
+            - --auth-mode=server
           rbac:
             create: true
           serviceAccount:
