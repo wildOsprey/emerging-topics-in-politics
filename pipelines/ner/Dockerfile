@@ -10,4 +10,3 @@ COPY ./storages /app/storages/
 COPY ./utils /app/utils/
 
 ENTRYPOINT [ "python3", "/app/pipelines/ner/main.py"]
-CMD ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@localhost:9200", "--index", "test_run"]
