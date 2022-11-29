@@ -27,7 +27,7 @@ def run(tweet_host: str, elastic_hosts: int, tags: [str], count: int, times: int
     except KeyError:
         print("Non data fild in request")
 
-    elastic_storage.insert_doc_bunks(result.get_data(), 'test_run_v2')
+    elastic_storage.insert_doc_bunks(result.get_data(), 'demo_run')
 
 
 if __name__ == "__main__":
