@@ -10,7 +10,7 @@ def clean_text(text):
     return text
 
 
-def clean_tweet(self, text):
+def clean_tweet(text):
     emoji_pattern = re.compile("["
                                 u"\U0001F600-\U0001F64F"
                                 u"\U0001F300-\U0001F5FF"
