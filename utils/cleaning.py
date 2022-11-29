@@ -21,4 +21,6 @@ def clean_tweet(text):
     text = emoji_pattern.sub(r'', text)
     text = re.sub(r'@\w+', '', text)
     text = re.sub(r'http.?://[^/s]+[/s]?', '', text)
+    text = re.sub("@[A-Za-z0-9_]+","", text)
+    text = re.sub("#[A-Za-z0-9_]+","", text)
     return text.strip().lower()
