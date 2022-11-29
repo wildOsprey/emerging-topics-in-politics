@@ -7,16 +7,20 @@ spec:
   templates:
   - name: scraper
     container:
-      image: glapss/scraper:1
-      args: ["--tweet-host", "twaapi-app.demo.svc.cluster.local:80", "--elastic-hosts", "https://elastic:password@elasticsearch-master.demo.svc.cluster.local:9200", "--tags", "RussiaIsATerroristState,UkraineRussianWar,glorytoukraine,ukrainewar", "--count", "100", "--times", "1000"]
+      image: glapss/scraper:4
+      args: ["--tweet-host", "twaapi-app.demo.svc.cluster.local:80", "--elastic-hosts", "https://elastic:password@elasticsearch-master.demo.svc.cluster.local:9200", "--tags", "#RussiaIsATerroristState,UkraineRussianWar,glorytoukraine,ukrainewar,Ukraine,#UA,#Ukraine", "--count", "100", "--times", "1000"]
   - name: ner
     container:
-      image: glapss/ner:2
-      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "test_run_v2"]
+      image: glapss/ner:3
+      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "demo_run"]
   - name: sentiment
     container:
       image: glapss/sentiment:1
-      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "test_run_v2"]
+      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "demo_run"]
+  - name: topic-modelling
+    container:
+      image: glapss/topic-modelling:1
+      args: ["--elastic-hosts", "https://elastic:OLVzrQ1YsIU91dIL@elasticsearch-master.demo.svc.cluster.local:9200", "--index", "demo_run"]
  
   - name: run
     steps:
@@ -26,3 +30,6 @@ spec:
         template: ner      
       - name: run-sentiment
         template: sentiment
+      - name: run-topic-modelling
+        template: topic-modelling
+

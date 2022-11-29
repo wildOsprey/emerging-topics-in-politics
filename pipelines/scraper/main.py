@@ -1,10 +1,11 @@
-import click
-import requests
 import json
-
-import sys; sys.path.append('/app/')
+import sys
+sys.path.append('/app/')
+import requests
+import click
 from pipelines.scraper.scraper import Scraper
 from storages.elastic import ElasticStorage
+
 
 
 @click.command()

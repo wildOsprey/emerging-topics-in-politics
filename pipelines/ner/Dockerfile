@@ -3,8 +3,6 @@ WORKDIR /app
 COPY ./pipelines/ner/requirements.txt .
 RUN pip install -r requirements.txt
 
-
-COPY ./pipelines/sentiment /app/pipelines/sentiment
 COPY ./algorithms /app/algorithms/
 COPY ./storages /app/storages/
 COPY ./utils /app/utils/
